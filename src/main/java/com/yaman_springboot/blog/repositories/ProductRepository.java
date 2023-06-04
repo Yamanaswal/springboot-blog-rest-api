@@ -9,14 +9,14 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     //JPQL QUERY
-    @Query("SELECT p From Product p WHERE " +
+    @Query(value = "SELECT p FROM Product p WHERE " +
             "p.name LIKE CONCAT('%', :query ,'%')" +
-            "p.description LIKE CONCAT('%', :query ,'%')")
+            "p.description LIKE CONCAT('%', :query ,'%')", nativeQuery = true)
     List<Product> searchProducts(String query);
 
 
     //Native Sql Query
-    @Query(value = "SELECT * From Product p WHERE " +
+    @Query(value = "SELECT * FROM Product p WHERE " +
             "p.name LIKE CONCAT('%', :query ,'%')" +
             "p.description LIKE CONCAT('%', :query ,'%')", nativeQuery = true)
     List<Product> searchProductsSQL(String query);
